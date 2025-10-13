@@ -76,12 +76,12 @@ int main() {
     char symbols_char;
     char numbers_char;
 
-    cin >> pw_len >> uppercase_char >> lowercase_char >> symbols_char >> numbers_char;
+    cin >> pw_len >> uppercase_char >> lowercase_char >> numbers_char >> symbols_char;
 
     bool uppercase_only = false;
     bool lowercase_only = false;
-    bool include_symbols;
-    bool include_numbers;
+    bool include_symbols = true;
+    bool include_numbers = true;
 
     if (uppercase_char == 'Y' && lowercase_char == 'N') {
         uppercase_only = true;
@@ -89,8 +89,16 @@ int main() {
         lowercase_only = true;
     }
 
-    vector<char> char_list = get_char_list(true, true);
-    string password = get_password(char_list, 32, false, false);
+    if (symbols_char == 'N') {
+        include_symbols = false;
+    }
+    if (numbers_char = 'N') {
+        include_numbers = false;
+    }
+
+    vector<char> char_list = get_char_list(include_symbols, include_numbers);
+    string password = get_password(char_list, pw_len, uppercase_only, lowercase_only);
+    cout << password << endl;
     return 0;
 }
 

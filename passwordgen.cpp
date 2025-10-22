@@ -2,8 +2,13 @@
 #include <iostream>
 #include <random>
 
-
 using namespace std;
+
+
+// Default character list that can be used to create passwords besides {0-9, a-z, A-Z}
+const char CHAR_LIST[] = {'`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-',
+                            '_', '+', '=', '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '\'',
+                            ',', '<', '.', '>', '/', '?'};
 
 vector<char> get_char_list(bool include_symbols, bool include_numbers) {
     vector<char> char_list = {};
@@ -65,6 +70,16 @@ string get_password(std::vector<char> char_list, int len, bool uppercase_only, b
     }
 
     return pw;
+}
+
+extern "C" string generate_password(int len, bool uppercase_only, bool lowercase_only, bool include_symbols, bool include_numbers) {
+    if (uppercase_only && lowercase_only) {
+        uppercase_only = false;
+        lowercase_only = false;
+    }
+    vector<char> char_list = get_char_list(include_symbols, include_numbers);
+    string password = get_password(char_list, len, uppercase_only, lowercase_only);
+    return password;
 }
 
 int main() {

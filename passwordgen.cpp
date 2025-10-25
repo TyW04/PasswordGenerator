@@ -72,7 +72,7 @@ string get_password(std::vector<char> char_list, int len, bool uppercase_only, b
     return pw;
 }
 
-extern "C" string generate_password(int len, bool uppercase_only, bool lowercase_only, bool include_symbols, bool include_numbers) {
+string generate_password(int len, bool uppercase_only, bool lowercase_only, bool include_symbols, bool include_numbers) {
     if (uppercase_only && lowercase_only) {
         uppercase_only = false;
         lowercase_only = false;
@@ -81,6 +81,14 @@ extern "C" string generate_password(int len, bool uppercase_only, bool lowercase
     string password = get_password(char_list, len, uppercase_only, lowercase_only);
     return password;
 }
+
+// Potentially for use in a C# .NET app
+/*
+extern "C" __declspec(dllexport) const char* generate_password_c(int len, bool uppercase_only, bool lowercase_only, bool include_symbols, bool include_numbers) {
+    static string password = generate_password(len, uppercase_only, lowercase_only, include_symbols, include_numbers);
+    return password.c_str();
+}
+*/
 
 int main() {
     cout << "Password length (minimum 8) | uppercase only | lowercase only | include numbers | include symbols" << endl;
@@ -116,4 +124,3 @@ int main() {
     cout << password << endl;
     return 0;
 }
-

@@ -1,0 +1,23 @@
+{
+  "name": "passwordgenerator",
+  "version": "1.0.0",
+  "description": "Password Generator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TyW04/PasswordGenerator.git"
+  },
+  "author": "Ty Wagner",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/TyW04/PasswordGenerator/issues"
+  },
+  "homepage": "https://github.com/TyW04/PasswordGenerator#readme",
+  "devDependencies": {
+    "electron": "^38.4.0"
+  }
+}

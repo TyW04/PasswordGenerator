@@ -89,7 +89,7 @@ extern "C" __declspec(dllexport) const char* generate_password_c(int len, bool u
     return password.c_str();
 }
 */
-
+/*
 int main() {
     cout << "Password length (minimum 8) | uppercase only | lowercase only | include numbers | include symbols" << endl;
     cout << "Example input: 16 N N Y Y" << "\nNOTE: For uppercase\\lowercase only, you can only select one option. If both are selected it will default to including uppercase and lowercase letters." << endl;
@@ -124,3 +124,4 @@ int main() {
     cout << password << endl;
     return 0;
 }
+*/

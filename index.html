@@ -12,21 +12,35 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>Password Generator</title>
-    <link ref="styles.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div id="password-selection-settings-div">
-      <input type="radio" id="uppercase-only" class="uppercase-only" value="uppercase-only" name="uppercase-lowercase"/>
-      <label for="uppercase-only">Uppercase Only<label><br>
+    <div class="password-settings-container" id="password-settings-container">
+      <div class="password-settings" id="password-settings">
+        <input type="checkbox" id="uppercase" class="uppercase-lowercase" value="uppercase" name="uppercase-lowercase" checked/>
+        <label for="uppercase" id="uppercase-label" class="uppercase-lowercase">Uppercase</label><br>
 
-      <input type="radio" id="lowercase-only" class="lowercase-only" value="lowercase-only" name="uppercase-lowercase"/>
-      <label for="lowercase-only">Lowercase Only<label><br>
+        <input type="checkbox" id="lowercase" class="uppercase-lowercase" value="lowercase" name="uppercase-lowercase" checked/>
+        <label for="lowercase" id="lowercase-label" class="uppercase-lowercase">Lowercase</label><br>
 
-      <input type="checkbox" id="include-symbols" class="include-symbols"/>
-      <label for="include-symbols">Include Symbols<label><br>
-        
-      <input type="checkbox" id="include-numbers" class="include-numbers"/>
-      <label for="include-numbers">Include Numbers</label><br>
+        <input type="checkbox" id="include-symbols" class="include-symbols" checked/>
+        <label for="include-symbols">Include Symbols</label><br>
+          
+        <input type="checkbox" id="include-numbers" class="include-numbers" checked/>
+        <label for="include-numbers">Include Numbers</label>
+
+        <!-- Put a slider for the password length here -->
+      </div>
+    </div>
+
+    <div class="generate-password-container" id="generate-password-container">
+
+    </div>
+
+    <!-- TODO: Put a copy button somewhere in here -->
+    <div class="password-container" id="password-container">
+      <div class="password-text" id="password-text">
+      </div>
     </div>
   </body>
 </html>

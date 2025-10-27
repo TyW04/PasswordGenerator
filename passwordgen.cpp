@@ -32,7 +32,7 @@ vector<char> get_char_list(bool include_symbols, bool include_numbers) {
     return char_list;
 }
 
-string get_password(std::vector<char> char_list, int len, bool uppercase_only, bool lowercase_only) {
+string get_password(std::vector<char> char_list, int len, bool include_uppercase, bool include_lowercase) {
     // Create seed
     random_device rd;
 
@@ -47,11 +47,13 @@ string get_password(std::vector<char> char_list, int len, bool uppercase_only, b
         
         char cur_char = char_list.at(char_index);
         
-        if (isalpha(cur_char)) {
-
-            if (uppercase_only) {
+        //TODO: FIX THIS, LOGIC BAD
+        if (!include_uppercase && !include_lowercase && !isalpha(cur_char)) {
+            pw.push_back(cur_char);
+        } else if (isalpha(cur_char)) {
+            if (include_uppercase && !include_lowercase) {
                 pw.push_back(toupper(cur_char));
-            } else if (lowercase_only) {
+            } else if (!include_uppercase && include_lowercase) {
                 pw.push_back(cur_char);
             } else {
                 // Randomly decide if alphanumeric character should be upper/lowercase
@@ -68,17 +70,12 @@ string get_password(std::vector<char> char_list, int len, bool uppercase_only, b
             pw.push_back(cur_char);
         }
     }
-
     return pw;
 }
 
-string generate_password(int len, bool uppercase_only, bool lowercase_only, bool include_symbols, bool include_numbers) {
-    if (uppercase_only && lowercase_only) {
-        uppercase_only = false;
-        lowercase_only = false;
-    }
+string generate_password(int len, bool include_uppercase, bool include_lowercase, bool include_symbols, bool include_numbers) {
     vector<char> char_list = get_char_list(include_symbols, include_numbers);
-    string password = get_password(char_list, len, uppercase_only, lowercase_only);
+    string password = get_password(char_list, len, include_uppercase, include_lowercase);
     return password;
 }
 

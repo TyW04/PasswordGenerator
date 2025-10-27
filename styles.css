@@ -1,3 +1,88 @@
-input[type="radio"] {
-    -webkit-appearance: checkbox;
+@font-face {
+	font-family: 'ubuntu-regular';
+	src: url('./Fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
+	font-weight: "regular";
 }
+@font-face {
+	font-family: 'ubuntu-bold';
+	src: url('./Fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
+	font-weight: "bold";
+}
+
+body {
+	background-color: rgb(110, 109, 109);
+}
+
+/* Center entire settings area */
+.password-settings-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Settings container */
+.password-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* keep labels aligned left inside box */
+  background-color: rgb(110, 109, 109);
+}
+
+/* Hide default inputs */
+.password-settings input[type="checkbox"] {
+  display: none;
+}
+
+/* Label styling */
+.password-settings label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 28px;
+  margin: 8px 0;
+  font-family: ubuntu-regular;
+  font-size: 16px;
+  color: white;
+}
+
+/* Custom box before label text */
+.password-settings label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #555;
+  border-radius: 4px;
+  background-color: rgb(110, 109, 109);
+  transition: all 0.2s ease;
+}
+
+/* Checked state */
+.password-settings input:checked + label::before {
+  background-color: rgb(252, 139, 53);
+  border-color: rgb(252, 139, 53);
+  box-shadow: inset 0 0 0 2px rgb(110, 109, 109);
+}
+
+/* Hover effect for password setting checkboxes */
+.password-settings label:hover::before {
+  border-color: rgb(252, 139, 53);
+}
+
+/* Center password text */
+.password-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Password display area */
+.password-text {
+	background-color: white;
+	width: 500px;
+	height: 100px;
+	border-radius: 15px;
+}
+

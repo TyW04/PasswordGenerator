@@ -1,8 +1,9 @@
 const { app, BrowserWindow } = require('electron')
+const { createReadStream } = require('original-fs')
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
+    width: 600,
     height: 600
   })
 
@@ -11,4 +12,16 @@ const createWindow = () => {
 
 app.whenReady().then(() => {
   createWindow()
+
+  app.on('activate', ()=> {
+    if (BrowserWindo.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 })

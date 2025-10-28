@@ -46,28 +46,25 @@ string get_password(std::vector<char> char_list, int len, bool include_uppercase
         int char_index = distrib(gen);
         
         char cur_char = char_list.at(char_index);
-        
-        //TODO: FIX THIS, LOGIC BAD
-        if (!include_uppercase && !include_lowercase && !isalpha(cur_char)) {
+
+        //TODO: FIX THIS,BAD LOGIC
+        if (!isalpha(cur_char)) {
             pw.push_back(cur_char);
-        } else if (isalpha(cur_char)) {
-            if (include_uppercase && !include_lowercase) {
+        } else {
+            if (include_uppercase && include_lowercase) {
+                // 50% chance of upper or lowercase letter
+                uniform_int_distribution<> distrib(0, 1);
+                int upper_or_lower = distrib(gen);
+                if (upper_or_lower == 0) {
+                    pw.push_back(toupper(cur_char));
+                } else {
+                    pw.push_back(tolower(cur_char));
+                }
+            } else if (include_uppercase && !include_lowercase) {
                 pw.push_back(toupper(cur_char));
             } else if (!include_uppercase && include_lowercase) {
                 pw.push_back(cur_char);
-            } else {
-                // Randomly decide if alphanumeric character should be upper/lowercase
-                uniform_int_distribution<> distrib(0,1);
-                int upper_lower = distrib(gen);
-                
-                if (upper_lower == 0) {
-                    pw.push_back(toupper(cur_char));
-                } else {
-                    pw.push_back(cur_char);
-                }
             }
-        } else {
-            pw.push_back(cur_char);
         }
     }
     return pw;

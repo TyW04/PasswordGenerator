@@ -19,5 +19,8 @@
   "homepage": "https://github.com/TyW04/PasswordGenerator#readme",
   "devDependencies": {
     "electron": "^38.4.0"
+  },
+  "dependencies": {
+    "node-addon-api": "^8.5.0"
   }
 }

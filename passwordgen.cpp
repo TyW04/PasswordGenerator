@@ -1,6 +1,8 @@
 #include "passwordgen.h"
 #include <iostream>
 #include <random>
+#include <node.h>
+#include <node_object_wrap.h>
 
 using namespace std;
 
@@ -83,11 +85,12 @@ extern "C" __declspec(dllexport) const char* generate_password_c(int len, bool u
     return password.c_str();
 }
 */
-/*
+
+
 int main() {
-    cout << "Password length (minimum 8) | uppercase only | lowercase only | include numbers | include symbols" << endl;
+    cout << "Password length (minimum 8) | allow uppercase | allow lowercase | include numbers | include symbols" << endl;
     cout << "Example input: 16 N N Y Y" << "\nNOTE: For uppercase\\lowercase only, you can only select one option. If both are selected it will default to including uppercase and lowercase letters." << endl;
-    int pw_len = 8;
+    /*int pw_len = 8;
     char uppercase_char = 'N';
     char lowercase_char = 'N';
     char symbols_char;
@@ -111,11 +114,12 @@ int main() {
     }
     if (numbers_char = 'N') {
         include_numbers = false;
-    }
+    }*/
 
-    vector<char> char_list = get_char_list(include_symbols, include_numbers);
-    string password = get_password(char_list, pw_len, uppercase_only, lowercase_only);
+    //vector<char> char_list = get_char_list(include_symbols, include_numbers);
+    vector<char> char_list = get_char_list(true, true);
+    //string password = get_password(char_list, pw_len, uppercase_only, lowercase_only);
+    string password = get_password(char_list, 16, true, true);
     cout << password << endl;
     return 0;
 }
-*/

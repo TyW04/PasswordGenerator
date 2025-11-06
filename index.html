@@ -15,32 +15,46 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="password-settings-container" id="password-settings-container">
-      <div class="password-settings" id="password-settings">
-        <input type="checkbox" id="uppercase" class="uppercase-lowercase" value="uppercase" name="uppercase-lowercase" checked/>
-        <label for="uppercase" id="uppercase-label" class="uppercase-lowercase">Uppercase</label><br>
+    <main>
+      <div class="password-settings-container" id="password-settings-container">
+        <div class="password-settings" id="password-settings">
+          <input type="checkbox" id="uppercase" class="uppercase-lowercase" value="uppercase" name="uppercase-lowercase" aria-label="Checkbox to allow uppercase characters in password. Allowed by default." checked/>
+          <label for="uppercase" id="uppercase-label" class="uppercase-lowercase">Uppercase</label>
 
-        <input type="checkbox" id="lowercase" class="uppercase-lowercase" value="lowercase" name="uppercase-lowercase" checked/>
-        <label for="lowercase" id="lowercase-label" class="uppercase-lowercase">Lowercase</label><br>
+          <input type="checkbox" id="lowercase" class="uppercase-lowercase" value="lowercase" name="uppercase-lowercase" aria-label="Checkbox to allow lowercase characters in password. Allowed by default." checked/>
+          <label for="lowercase" id="lowercase-label" class="uppercase-lowercase">Lowercase</label>
 
-        <input type="checkbox" id="include-symbols" class="include-symbols" checked/>
-        <label for="include-symbols">Include Symbols</label><br>
-          
-        <input type="checkbox" id="include-numbers" class="include-numbers" checked/>
-        <label for="include-numbers">Include Numbers</label>
-
-        <!-- Put a slider for the password length here -->
+          <input type="checkbox" id="include-symbols" class="include-symbols" aria-label="Checkbox to allow symbols in password. Allowed by default." checked/>
+          <label for="include-symbols">Include Symbols</label>
+            
+          <input type="checkbox" id="include-numbers" class="include-numbers" aria-label="Checkbox to allow numbers in password. Allowed by default." checked/>
+          <label for="include-numbers">Include Numbers</label>
+        </div>
       </div>
-    </div>
 
-    <div class="generate-password-container" id="generate-password-container">
+      <!-- Slider for setting password length -->
+      <div class="password-length-slider-container" id="password-length-slider-container" name="password-length-slider-container">
+        <p id="password-length-text">Password Length: <span id="password-length"></span></p>
+        <input type="range" min="8" max="32" value="16" class="password-length-slider" id="password-length-slider"/>
+        <script src="./slider.js"></script>
+      </div>
 
-    </div>
+      <!-- Button to generate password -->
+      <div class="generate-password-container" id="generate-password-container" name="generate-password-container">
+        <button class="generate-password-button" id="generate-password-button" name="generate-password-button" aria-label="Button to generate password">Generate Password</button>
+      </div>
 
     <!-- TODO: Put a copy button somewhere in here -->
-    <div class="password-container" id="password-container">
-      <div class="password-text" id="password-text">
+      <div class="password-container" id="password-container">
+        <div class="password-text" id="password-text">
+        </div>
       </div>
-    </div>
+    </main>
+    <footer>
+      <section id="versions">        
+        <p id="info"></p>
+        <script src="./renderer.js"></script>
+      </section>
+    </footer>
   </body>
 </html>

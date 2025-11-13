@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron/main')
 const path = require('node:path')
+const myAddon = require('.')
 
 const createWindow = () => {
   const win = new BrowserWindow({

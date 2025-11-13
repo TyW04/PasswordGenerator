@@ -1,26 +1,17 @@
 {
-  "name": "passwordgenerator",
+  "name": "my-native-addon",
   "version": "1.0.0",
-  "description": "Password Generator",
-  "main": "main.js",
+  "description": "A native addon for Electron",
+  "main": "js/index.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TyW04/PasswordGenerator.git"
-  },
-  "author": "Ty Wagner",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/TyW04/PasswordGenerator/issues"
-  },
-  "homepage": "https://github.com/TyW04/PasswordGenerator#readme",
-  "devDependencies": {
-    "electron": "^38.4.0"
+    "clean": "node -e \"require('fs').rmSync('build', { recursive: true, force: true })\"",
+    "build": "node-gyp configure && node-gyp build"
   },
   "dependencies": {
+    "bindings": "^1.5.0",
     "node-addon-api": "^8.5.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^11.1.0"
   }
 }

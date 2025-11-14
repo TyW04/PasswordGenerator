@@ -4,43 +4,38 @@
 
 using namespace std;
 
-
 // Default character list that can be used to create passwords besides {0-9, a-z, A-Z}
 namespace PasswordGenerator {
 
-    inline const char CHAR_LIST[] = {'`', '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-',
-                            '_', '+', '=', '[', ']', '{', '}', '\\', '|', ';', ':', '\'', '\'',
-                            ',', '<', '.', '>', '/', '?'};
-
-    vector<char> get_char_list(bool include_symbols,
-                               bool include_numbers)
-    {
-        vector<char> char_list = {};
-
-        for (char c = 'a'; c <= 'z'; c++) {
-            char_list.push_back(c);
-        }
-        
-        if (include_symbols) {
-            for (char c : CHAR_LIST) {
-                char_list.push_back(c);
-            }
-        }
-
-        if (include_numbers) {
-            for (char c = '0'; c <= '9'; c++) {
-                char_list.push_back(c);
-            }
-        }
-
-        return char_list;
+    string PasswordGen::generatePassword(PasswordOptions options) {
+        vector<char> charList = getCharList(options.includeSymbols, options.includeNumbers);
+        string password = getPassword(charList, options);
+        return password;
     }
 
-    string get_password(std::vector<char> char_list,
-                        int len,
-                        bool include_uppercase,
-                        bool include_lowercase) 
-    {
+    vector<char> PasswordGen::getCharList(bool includeSymbols, bool includeNumbers) {
+        vector<char> charList = {};
+
+        for (char c = 'a'; c <= 'z'; c++) {
+            charList.push_back(c);
+        }
+        
+        if (includeSymbols) {
+            for (const char& c : CHAR_LIST) {
+                charList.push_back(c);
+            }
+        }
+
+        if (includeNumbers) {
+            for (char c = '0'; c <= '9'; c++) {
+                charList.push_back(c);
+            }
+        }
+
+        return charList;
+    }
+
+    string PasswordGen::getPassword(std::vector<char> charList, PasswordOptions options) {
         // Create seed
         random_device rd;
 
@@ -48,47 +43,39 @@ namespace PasswordGenerator {
         ranlux48 gen(rd());
         
         string pw = "";
-        for (int i = 0; i < len; i++) {
-            // Get random number [0, char_list length) for index of char_list to grab from
-            uniform_int_distribution<> distrib(0, char_list.size() - 1);
-            int char_index = distrib(gen);
+        for (int i = 0; i < options.length; i++) {
+            // Get random number [0, charList length) for index of charList to grab from
+            uniform_int_distribution<> distrib(0, charList.size() - 1);
+            int charIndex = distrib(gen);
             
-            char cur_char = char_list.at(char_index);
+            char curChar = charList.at(charIndex);
 
-            if (!isalpha(cur_char)) {
-                pw.push_back(cur_char);
+            if (!isalpha(curChar)) {
+                pw.push_back(curChar);
             } else {
-                if (include_uppercase && include_lowercase) {
+                if (options.includeUppercase && options.includeLowercase) {
                     // 50% chance of upper or lowercase letter
                     uniform_int_distribution<> distrib(0, 1);
-                    int upper_or_lower = distrib(gen);
-                    if (upper_or_lower == 0) {
-                        pw.push_back(toupper(cur_char));
+                    int upperOrLower = distrib(gen);
+
+                    if (upperOrLower == 0) {
+                        pw.push_back(toupper(curChar));
                     } else {
-                        pw.push_back(tolower(cur_char));
+                        pw.push_back(tolower(curChar));
                     }
-                } else if (include_uppercase && !include_lowercase) {
-                    pw.push_back(toupper(cur_char));
-                } else if (!include_uppercase && include_lowercase) {
-                    pw.push_back(cur_char);
+
+                } else if (options.includeUppercase && !options.includeLowercase) {
+                    pw.push_back(toupper(curChar));
+                } else if (!options.includeUppercase && options.includeLowercase) {
+                    pw.push_back(curChar);
                 }
             }
         }
         return pw;
     }
 
-    string generate_password(int len,
-                            bool include_uppercase,
-                            bool include_lowercase,
-                            bool include_symbols,
-                            bool include_numbers) 
-    {
-        vector<char> char_list = get_char_list(include_symbols, include_numbers);
-        string password = get_password(char_list, len, include_uppercase, include_lowercase);
-        return password;
-    }
-
 } // namespace PasswordGenerator
+
 /*int main() {
     cout << "Password length (minimum 8) | allow uppercase | allow lowercase | include numbers | include symbols" << endl;
     cout << "Example input: 16 N N Y Y" << "\nNOTE: For uppercase\\lowercase only, you can only select one option. If both are selected it will default to including uppercase and lowercase letters." << endl;
@@ -118,10 +105,10 @@ namespace PasswordGenerator {
         include_numbers = false;
     }
 
-    //vector<char> char_list = get_char_list(include_symbols, include_numbers);
-    vector<char> char_list = get_char_list(true, true);
-    //string password = get_password(char_list, pw_len, uppercase_only, lowercase_only);
-    string password = get_password(char_list, 16, true, true);
+    //vector<char> charList = get_charList(include_symbols, include_numbers);
+    vector<char> charList = get_charList(true, true);
+    //string password = get_password(charList, pw_len, uppercase_only, lowercase_only);
+    string password = get_password(charList, 16, true, true);
     cout << password << endl;
     return 0;
 }*/
